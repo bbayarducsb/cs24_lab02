@@ -138,24 +138,32 @@ IntList& IntList::operator=(const IntList& source){
             delete clone; 
             clone = head;
         }
+        if(source.head==nullptr){
+            head = nullptr; 
+            tail = nullptr; 
+            return *this; 
+        }
+        head = new Node();
+        Node* nCurrent = head; 
+        Node* oCurrent = source.head; 
+        while(oCurrent != nullptr) {
+            nCurrent->info = oCurrent->info; 
+            nCurrent->next = new Node(); 
+            oCurrent = oCurrent->next; 
+            nCurrent = nCurrent->next; 
+        }
+        tail = nCurrent; 
+        tail->next = nullptr;
+        return *this;
     }
     if(source.head==nullptr){
         head = nullptr; 
         tail = nullptr; 
         return *this; 
     }
-    head = new Node();
-    Node* nCurrent = head; 
-    Node* oCurrent = source.head; 
-    while(oCurrent != nullptr) {
-        nCurrent->info = oCurrent->info; 
-        nCurrent->next = new Node(); 
-        oCurrent = oCurrent->next; 
-        nCurrent = nCurrent->next; 
-    }
-    tail = nCurrent; 
-    tail->next = nullptr;
-    return *this;
+    head = source.head; 
+    tail = source.tail; 
+    return *this; 
 }
 
 // constructor sets up empty list
