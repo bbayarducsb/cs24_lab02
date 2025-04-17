@@ -130,7 +130,8 @@ int IntList::count() const {
 //Assignment operator should copy the list from the source
 //to this list, deleting/replacing any existing nodes
 IntList& IntList::operator=(const IntList& source){
-    if(head != source.head) {
+    if(&source != this) {
+        std::cerr<<"this should run";
         Node* clone = head; 
         while(clone != nullptr) {
             head = head->next;
