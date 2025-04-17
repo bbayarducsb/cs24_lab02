@@ -19,7 +19,6 @@ IntList::IntList(const IntList& source) {
         nCurrent = nCurrent->next; 
     }
     tail = nCurrent; 
-    head = head->next; 
 }
 
 // destructor deletes all nodes
@@ -128,8 +127,23 @@ int IntList::count() const {
 //Assignment operator should copy the list from the source
 //to this list, deleting/replacing any existing nodes
 IntList& IntList::operator=(const IntList& source){
-    IntList* returnObj = new IntList(source); 
-    return *returnObj;
+    if(source.head==nullptr){
+        head = nullptr; 
+        tail = nullptr; 
+        return *this; 
+    }
+    head = new Node();
+    Node* nCurrent = head; 
+    Node* oCurrent = source.head; 
+    while(oCurrent != nullptr) {
+        nCurrent->info = oCurrent->info; 
+        nCurrent->next = new Node(); 
+        oCurrent = oCurrent->next; 
+        nCurrent = nCurrent->next; 
+    }
+    tail = nCurrent; 
+    tail->next = nullptr;
+    return *this;
 }
 
 // constructor sets up empty list
